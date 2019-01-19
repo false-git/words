@@ -1,4 +1,4 @@
 class Word < ApplicationRecord
   belongs_to :wordset
-  has_many :scores, dependend: :destroy
+  has_many :scores, dependent: :destroy
 end
