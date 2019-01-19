@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  word: one
+  q_a_ok: 1
+  q_a_ng: 1
+  a_q_ok: 1
+  a_q_ng: 1
+
+two:
+  user: two
+  word: two
+  q_a_ok: 1
+  q_a_ng: 1
+  a_q_ok: 1
+  a_q_ng: 1

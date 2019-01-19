@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @wordset.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @wordset.description %>
+</p>
+
+<%= link_to 'Edit', edit_wordset_path(@wordset) %> |
+<%= link_to 'Back', wordsets_path %>
