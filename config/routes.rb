@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  root 'main#index'
   resources :users
   resources :wordsets, shallow: true do
     resources :words
