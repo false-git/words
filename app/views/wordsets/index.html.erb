@@ -7,7 +7,7 @@
     <tr>
       <th>Name</th>
       <th>Description</th>
-      <th colspan="3"></th>
+      <th colspan="4"></th>
     </tr>
   </thead>
 
@@ -19,6 +19,7 @@
         <td><%= link_to 'Show', wordset %></td>
         <td><%= link_to 'Edit', edit_wordset_path(wordset) %></td>
         <td><%= link_to 'Destroy', wordset, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Words', wordset_words_path(wordset) %></td>
       </tr>
     <% end %>
   </tbody>
