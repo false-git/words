@@ -1,6 +1,11 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Wordset:</strong>
+  <%= @word.wordset.name %>
+</p>
+
+<p>
   <strong>Question:</strong>
   <%= @word.question %>
 </p>
@@ -10,10 +15,5 @@
   <%= @word.answer %>
 </p>
 
-<p>
-  <strong>Wordset:</strong>
-  <%= @word.wordset %>
-</p>
-
 <%= link_to 'Edit', edit_word_path(@word) %> |
-<%= link_to 'Back', words_path %>
+<%= link_to 'Back', wordset_words_path(@word.wordset_id) %>

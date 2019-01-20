@@ -2,5 +2,5 @@
 
 <%= render 'form', word: @word %>
 
-<%= link_to 'Show', @word %> |
-<%= link_to 'Back', words_path %>
+<%= link_to 'Show', word_path(@word) %> |
+<%= link_to 'Back', wordset_words_path(@wordset.id) %>

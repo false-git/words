@@ -4,7 +4,9 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.all
+    #@words = Word.all
+    @wordset = Wordset.where(:id => params[:wordset_id]).first
+    @words = @wordset.words.all
   end
 
   # GET /words/1
@@ -14,7 +16,9 @@ class WordsController < ApplicationController
 
   # GET /words/new
   def new
-    @word = Word.new
+    #@word = Word.new
+    @wordset = Wordset.where(:id => params[:wordset_id]).first
+    @word = @wordset.words.build
   end
 
   # GET /words/1/edit
@@ -24,11 +28,14 @@ class WordsController < ApplicationController
   # POST /words
   # POST /words.json
   def create
-    @word = Word.new(word_params)
+    #@word = Word.new(word_params)
+    @wordset = Wordset.where(:id => params[:wordset_id]).first
+    @word = @wordset.words.build(word_params)
 
     respond_to do |format|
       if @word.save
         format.html { redirect_to @word, notice: 'Word was successfully created.' }
+        #format.html { redirect_to [@wordset, @word], notice: 'Word was successfully created.' }
         format.json { render :show, status: :created, location: @word }
       else
         format.html { render :new }
@@ -42,7 +49,8 @@ class WordsController < ApplicationController
   def update
     respond_to do |format|
       if @word.update(word_params)
-        format.html { redirect_to @word, notice: 'Word was successfully updated.' }
+        #format.html { redirect_to @word, notice: 'Word was successfully updated.' }
+        format.html { redirect_to [@wordset, @word], notice: 'Word was successfully updated.' }
         format.json { render :show, status: :ok, location: @word }
       else
         format.html { render :edit }
@@ -56,7 +64,8 @@ class WordsController < ApplicationController
   def destroy
     @word.destroy
     respond_to do |format|
-      format.html { redirect_to words_url, notice: 'Word was successfully destroyed.' }
+      #format.html { redirect_to words_url, notice: 'Word was successfully destroyed.' }
+      format.html { redirect_to wordset_words_url(@wordset.id), notice: 'Word was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -65,6 +74,7 @@ class WordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_word
       @word = Word.find(params[:id])
+      @wordset = @word.wordset
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
