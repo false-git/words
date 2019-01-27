@@ -1,5 +1,23 @@
 <h1>単語帳アプリのようなもの</h1>
 
+<% if @login_user.nil? then %>
+<% if ! @message.nil? then %>
+<%= @message %>
+<% end %>
+<%= form_with url: login_path, local: true do |f| %>
+<%= f.label :name, 'id' %>
+<%= f.text_field :name %>
+<%= f.submit 'ログイン' %><br/>
+<% end %>
+<% else %>
+<%= @login_user.name %> さん、ようこそ<br/><br/>
+<%= form_with url: play_path, local: true do |f| %>
+<%= select_tag(:id, options_from_collection_for_select(Wordset.all,
+    :id, :name)) %><br/>
+<%= f.submit 'やるぜ！' %>
+<% end %>
+<br/><br/><%= link_to 'logout', logout_path %>
+<% end %>
 
 <hr>
 <h2>maintenance menu</h2>
