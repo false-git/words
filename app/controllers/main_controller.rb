@@ -33,6 +33,9 @@ class MainController < ApplicationController
     session[:play_words] = @words
     @count = 0
     session[:play_count] = @count
+    @ok = 0
+    session[:play_ok] = @ok
+    session[:ng_words] = []
     @word = @words[0]
     @prevword = nil
     @message = nil
@@ -43,6 +46,8 @@ class MainController < ApplicationController
     @wordset = session[:play_wordset]
     @words = session[:play_words]
     @count = session[:play_count]
+    @ok = session[:play_ok]
+    @ng_words = session[:ng_words]
     @prevword = @words[@count]
     @count += 1
     if @count == @words.length then
@@ -56,9 +61,12 @@ class MainController < ApplicationController
     if @prevword.answer == @answer then
       @score.q_a_ok += 1
       @message = '正解！'
+      @ok += 1
+      session[:play_ok] = @ok
     else
       @score.q_a_ng += 1
       @message = '間違い！'
+      @ng_words << @prevword
     end
     @score.save
     session[:play_count] = @count

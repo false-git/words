@@ -8,7 +8,12 @@ No. <%= @count + 1 %> あと<%= @words.length - @count %>問<br/><br/>
 ○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %><br/><br/>
 <% end %>
 <% if @word.nil? then %>
-おしまい！お疲れ様でした。
+おしまい！お疲れ様でした。<%= @ok %> / <%= @words.length %>点！
+<table><tdoby>
+<% for word in @ng_words do %>
+<tr><td><%= word.question %></td><td><%= word.answer %></td></tr>
+<% end %>
+</tbody></table>
 <% else %>
 <%= form_with url: question_path, local: true do |f| %>
 <%= f.label :answer, @word.question %>
