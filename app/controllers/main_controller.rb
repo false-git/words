@@ -38,7 +38,7 @@ class MainController < ApplicationController
     session[:ng_words] = []
     @word = @words[0]
     @prevword = nil
-    @message = nil
+    @answer_ok = nil
   end
 
   def question
@@ -60,12 +60,12 @@ class MainController < ApplicationController
     @score = @prevword.scores.build({user: @login_user, q_a_ok: 0, q_a_ng: 0, a_q_ok: 0, a_q_ng: 0}) if @score.nil?
     if @prevword.answer == @answer then
       @score.q_a_ok += 1
-      @message = '正解！'
+      @answer_ok = true
       @ok += 1
       session[:play_ok] = @ok
     else
       @score.q_a_ng += 1
-      @message = '間違い！'
+      @answer_ok = false
       @ng_words << @prevword
     end
     @score.save

@@ -3,8 +3,13 @@
 <%= @login_user.name %> さん、がんばって！<br/><br/>
 <%= @wordset.name %>
 No. <%= @count + 1 %> あと<%= @words.length - @count %>問<br/><br/>
-<% if !@message.nil? then %>
-<%= @message %> <%= @prevword.question %>: <%= @prevword.answer %>
+<% if !@answer_ok.nil? then %>
+<% if @answer_ok then %>
+<span class="ok">正解！</span>
+<% else %>
+<span class="ng">間違い！</span>
+<% end %>
+ <%= @prevword.question %>: <%= @prevword.answer %> (<%= @answer %>)
 ○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %><br/><br/>
 <% end %>
 <% if @word.nil? then %>

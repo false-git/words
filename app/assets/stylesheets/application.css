@@ -13,3 +13,6 @@
  *= require_tree .
  *= require_self
  */
+
+.ng { color: red; fond-size: lerger; font-weight: bold }
+.ok { color: blue; font-size: larger; font-weight: bold }
