@@ -17,7 +17,7 @@ No. <%= @count + 1 %> あと<%= @words.length - @count %>問<br/><br/>
 <% else %>
 <%= form_with url: question_path, local: true do |f| %>
 <%= f.label :answer, @word.question %>
-<%= f.text_field :answer %>
+<%= f.text_field :answer, :autofocus => true, :autocomplete => :off %>
 <%= f.submit '答える!' %>
 <% end %>
 <% end %>
