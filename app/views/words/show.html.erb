@@ -16,4 +16,5 @@
 </p>
 
 <%= link_to 'Edit', edit_word_path(@word) %> |
+<%= link_to 'New Word', new_wordset_word_path(@word.wordset_id) %> |
 <%= link_to 'Back', wordset_words_path(@word.wordset_id) %>
