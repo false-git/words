@@ -6,7 +6,7 @@ class WordsController < ApplicationController
   def index
     #@words = Word.all
     @wordset = Wordset.where(:id => params[:wordset_id]).first
-    @words = @wordset.words.all
+    @words = @wordset.words.order(:index)
   end
 
   # GET /words/1
@@ -19,6 +19,11 @@ class WordsController < ApplicationController
     #@word = Word.new
     @wordset = Wordset.where(:id => params[:wordset_id]).first
     @word = @wordset.words.build
+    @word.index = @wordset.words.maximum(:index)
+    if @word.index.nil? then
+      @word.index = 0
+    end
+      @word.index += 1
   end
 
   # GET /words/1/edit

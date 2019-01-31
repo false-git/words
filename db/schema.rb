@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_19_040529) do
+ActiveRecord::Schema.define(version: 2019_01_31_105440) do
 
   create_table "articles", force: :cascade do |t|
     t.string "title"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2019_01_19_040529) do
     t.integer "wordset_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "index"
     t.index ["wordset_id"], name: "index_words_on_wordset_id"
   end
 

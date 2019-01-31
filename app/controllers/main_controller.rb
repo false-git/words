@@ -40,7 +40,7 @@ class MainController < ApplicationController
   def play
     @login_user = current_user
     wordset = Wordset.find(params[:id])
-    @words = wordset.words
+    @words = wordset.words.order(:index)
     play_init
   end
 
