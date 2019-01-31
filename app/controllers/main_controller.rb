@@ -2,6 +2,35 @@
 class MainController < ApplicationController
   def index
     @login_user = current_user
+    if !@login_user.nil? then
+      @wordsets = []
+      for wordset in Wordset.all do
+        ok_count = 0
+        ng_count = 0
+        wordset_length = wordset.words.length
+        for word in wordset.words do
+          score = word.scores.find_by(user_id: @login_user.id)
+          if !score.nil? then
+            ok_count += score.q_a_ok
+            ng_count += score.q_a_ng
+          end
+        end
+        wordset.instance_variable_set(:@ok_count, ok_count)
+        wordset.instance_variable_set(:@ng_count, ng_count)
+        wordset.instance_variable_set(:@length, wordset_length)
+        if ok_count + ng_count > 0 then
+          wordset.instance_variable_set(:@ok_rate, 100 * ok_count / (ok_count + ng_count))
+        else
+          wordset.instance_variable_set(:@ok_rate, '-')
+        end
+        if wordset_length > 0 then
+          wordset.instance_variable_set(:@challenge, 1.0 * (ok_count + ng_count) / wordset_length)
+        else
+          wordset.instance_variable_set(:@challenge, 0.0)
+        end
+        @wordsets << wordset
+      end
+    end
   end
 
   def login

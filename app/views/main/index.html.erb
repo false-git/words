@@ -12,7 +12,7 @@
 <% else %>
 <%= @login_user.name %> さん、ようこそ<br/><br/>
 <%= form_with url: play_path, local: true do |f| %>
-<%= select_tag(:id, options_from_collection_for_select(Wordset.all,
+<%= select_tag(:id, options_from_collection_for_select(@wordsets,
     :id, :name)) %><br/>
 <%= f.submit 'やるぜ！' %>
 <% end %><br/>
@@ -24,6 +24,25 @@
 <br/><br/><%= link_to 'logout', logout_path %>
 <% end %>
 
+<% if !@wordsets.nil? then %>
+<hr>
+過去の成績
+<table>
+  <tbody>
+    <tr><th>問題集</th><th>問題数</th><th>正答数</th><th>誤答数</th><th>正答率(%)</th><th>挑戦回数</th></tr>
+    <% for wordset in @wordsets do %>
+    <tr>
+      <td><%= wordset.name %></td>
+      <td align="right"><%= wordset.instance_variable_get(:@length) %></td>
+      <td align="right"><%= wordset.instance_variable_get(:@ok_count) %></td>
+      <td align="right"><%= wordset.instance_variable_get(:@ng_count) %></td>
+      <td align="right"><%= wordset.instance_variable_get(:@ok_rate) %></td>
+      <td align="right"><%= "%.1f" % wordset.instance_variable_get(:@challenge) %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+<% end %>
 <hr>
 <h2>maintenance menu</h2>
 
