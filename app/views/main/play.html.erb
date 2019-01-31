@@ -1,8 +1,6 @@
 <h1>単語帳アプリのようなもの</h1>
 
 <%= @login_user.name %> さん、がんばって！<br/><br/>
-<%= @wordset.name %>
-No. <%= @count + 1 %> あと<%= @words.length - @count %>問<br/><br/>
 <% if !@answer_ok.nil? then %>
 <% if @answer_ok then %>
 <span class="ok">正解！</span>
@@ -20,6 +18,8 @@ No. <%= @count + 1 %> あと<%= @words.length - @count %>問<br/><br/>
 <% end %>
 </tbody></table>
 <% else %>
+<%= @word.wordset.name %>
+No. <%= @count + 1 %> あと<%= @words.length - @count %>問<br/><br/>
 <%= form_with url: question_path, local: true do |f| %>
 <%= f.label :answer, @word.question %>
 <%= f.text_field :answer, :autofocus => true, :autocomplete => :off %>

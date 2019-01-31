@@ -25,25 +25,51 @@ class MainController < ApplicationController
                     User.find_by(id: session[:current_user_id])
   end
 
-  def play
-    @login_user = current_user
-    @wordset = Wordset.find(params[:id])
-    session[:play_wordset] = @wordset
-    @words = @wordset.words
-    session[:play_words] = @words
+  def play_init
     @count = 0
-    session[:play_count] = @count
     @ok = 0
-    session[:play_ok] = @ok
+    session[:play_words] = @words
     session[:ng_words] = []
+    session[:play_count] = @count
+    session[:play_ok] = @ok
     @word = @words[0]
     @prevword = nil
     @answer_ok = nil
   end
 
+  def play
+    @login_user = current_user
+    wordset = Wordset.find(params[:id])
+    @words = wordset.words
+    play_init
+  end
+
+  def play_random
+    @login_user = current_user
+    @words = []
+    scores = []
+    all_flag = params[:all] == 1 ? true : false
+    for word in Word.all
+      score = word.scores.find_by(user_id: @login_user.id)
+      if score.nil? then
+        @words << word if all_flag
+      else
+        scores << score
+      end
+      break if @words.length >= 30
+    end
+    if @words.length < 30 then
+      scores.sort! {|a, b| a.q_a_ok <=> b.q_a_ok}
+      for index in 0..(30 - @words.length - 1) do
+        @words << scores[index].word
+      end
+    end
+    play_init
+    render 'play'
+  end
+
   def question
     @login_user = current_user
-    @wordset = session[:play_wordset]
     @words = session[:play_words]
     @count = session[:play_count]
     @ok = session[:play_ok]

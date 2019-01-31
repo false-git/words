@@ -15,6 +15,11 @@
 <%= select_tag(:id, options_from_collection_for_select(Wordset.all,
     :id, :name)) %><br/>
 <%= f.submit 'やるぜ！' %>
+<% end %><br/>
+<%= form_with url: play_random_path, local: true do |f| %>
+<%= f.radio_button(:all, 1) %>全部対象/<%= f.radio_button(:all,
+					   0, {:checked => true}) %>今までやったの対象<br/>
+<%= f.submit '苦手克服レッスン やるぜ！' %>
 <% end %>
 <br/><br/><%= link_to 'logout', logout_path %>
 <% end %>

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   post '/main/login', to: 'main#login', as: 'login'
   get '/main/logout', to: 'main#logout', as: 'logout'
   post '/main/play', to: 'main#play', as: 'play'
+  post '/main/play_random', to: 'main#play_random', as: 'play_random'
   post '/main/question', to: 'main#question', as: 'question'
   resources :users
   resources :wordsets, shallow: true do
