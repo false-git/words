@@ -13,7 +13,7 @@
 <%= @login_user.name %> さん、ようこそ<br/><br/>
 <%= form_with url: play_path, local: true do |f| %>
 <%= select_tag(:id, options_from_collection_for_select(@wordsets,
-    :id, :name)) %><br/>
+    :id, :name, cookies[:last_wordset])) %><br/>
 <%= f.submit 'やるぜ！' %>
 <% end %><br/>
 <%= form_with url: play_random_path, local: true do |f| %>

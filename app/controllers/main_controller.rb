@@ -70,6 +70,7 @@ class MainController < ApplicationController
     @login_user = current_user
     wordset = Wordset.find(params[:id])
     @words = wordset.words.order(:index)
+    cookies.permanent[:last_wordset] = params[:id]
     play_init
   end
 
