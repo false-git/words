@@ -4,7 +4,7 @@ class WordsetsController < ApplicationController
   # GET /wordsets
   # GET /wordsets.json
   def index
-    @wordsets = Wordset.all
+    @wordsets = Wordset.order(:index)
   end
 
   # GET /wordsets/1
@@ -69,6 +69,6 @@ class WordsetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def wordset_params
-      params.require(:wordset).permit(:name, :description)
+      params.require(:wordset).permit(:index, :name, :description)
     end
 end
