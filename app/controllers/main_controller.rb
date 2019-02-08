@@ -86,7 +86,7 @@ class MainController < ApplicationController
       return
     end
     cookies.permanent[:last_wordsets] = JSON.generate(wordset_ids)
-    for word in Word.where(wordset_id: wordset_ids)
+    for word in Word.where(wordset_id: wordset_ids).shuffle
       score = word.scores.find_by(user_id: @login_user.id)
       if score.nil? then
         @words << word
@@ -96,7 +96,7 @@ class MainController < ApplicationController
       break if @words.length >= 30
     end
     if @words.length < 30 then
-      scores.sort! {|a, b| a.q_a_ok <=> b.q_a_ok}
+      scores.sort! {|a, b| a.q_a_ok == b.q_a_ok ? rand(3) - 1 : a.q_a_ok <=> b.q_a_ok}
       limit = 30 - @words.length - 1
       limit = scores.length - 1 if limit > scores.length
       for index in 0..limit do
