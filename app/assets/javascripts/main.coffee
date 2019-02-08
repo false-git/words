@@ -2,7 +2,7 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-$ ->
+$(document).on 'turbolinks:load', ->
   $("#btn_select_all").click ->
     $('input[name="wordset_id[]"]').prop('checked', true)
   $("#btn_select_none").click ->
