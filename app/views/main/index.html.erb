@@ -22,7 +22,7 @@
     <% for wordset in @wordsets do %>
     <tr>
       <td><%= f.check_box('wordset_id', {multiple: true}, wordset.id, nil) %></td>
-      <td align="right"><%= wordset.index %></td>
+      <td align="right"><%= f.label("wordset_id_" + wordset.id.to_s, wordset.index) %></td>
       <td><%= link_to wordset.name, wordset_words_path(wordset) %></td>
       <td><%= link_to 'やる!', play_wordset_path(wordset.id) %></td>
       <td align="right"><%= wordset.instance_variable_get(:@length) %></td>
