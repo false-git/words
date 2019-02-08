@@ -78,11 +78,11 @@ class MainController < ApplicationController
     @login_user = current_user
     @words = []
     scores = []
-    all_flag = params[:all] == 1 ? true : false
-    for word in Word.all
+    wordset_ids = params[:wordset_id]
+    for word in Word.where(wordset_id: wordset_ids)
       score = word.scores.find_by(user_id: @login_user.id)
       if score.nil? then
-        @words << word if all_flag
+        @words << word
       else
         scores << score
       end
@@ -90,7 +90,9 @@ class MainController < ApplicationController
     end
     if @words.length < 30 then
       scores.sort! {|a, b| a.q_a_ok <=> b.q_a_ok}
-      for index in 0..(30 - @words.length - 1) do
+      limit = 30 - @words.length - 1
+      limit = scores.length - 1 if limit > scores.length
+      for index in 0..limit do
         @words << scores[index].word
       end
     end
