@@ -1,9 +1,9 @@
 <h1>単語帳アプリのようなもの</h1>
 
-<% if @login_user.nil? then %>
 <% if ! @message.nil? then %>
-<%= @message %>
+<div class="field_with_errors"><%= @message %></div>
 <% end %>
+<% if @login_user.nil? then %>
 <%= form_with url: login_path, local: true do |f| %>
 <%= f.label :name, 'id' %>
 <%= f.text_field :name %>

@@ -79,6 +79,12 @@ class MainController < ApplicationController
     @words = []
     scores = []
     wordset_ids = params[:wordset_id]
+    if wordset_ids.nil? then
+      @message = 'どれか選んでおくれよ。'
+      index()
+      render "main/index"
+      return
+    end
     for word in Word.where(wordset_id: wordset_ids)
       score = word.scores.find_by(user_id: @login_user.id)
       if score.nil? then
