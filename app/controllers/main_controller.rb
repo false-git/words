@@ -70,7 +70,7 @@ class MainController < ApplicationController
     @login_user = current_user
     wordset = Wordset.find(params[:id])
     @words = wordset.words.order(:index)
-    cookies.permanent[:last_wordset] = params[:id]
+    cookies.permanent[:last_wordsets] = JSON.generate([params[:id]])
     play_init
   end
 
@@ -85,6 +85,7 @@ class MainController < ApplicationController
       render "main/index"
       return
     end
+    cookies.permanent[:last_wordsets] = JSON.generate(wordset_ids)
     for word in Word.where(wordset_id: wordset_ids)
       score = word.scores.find_by(user_id: @login_user.id)
       if score.nil? then

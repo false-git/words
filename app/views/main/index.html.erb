@@ -15,13 +15,21 @@
 「苦手」のチェックボックスをチェックして「苦手克服レッスンやるぜ！」
 ボタンを押そう！
 <br/><br/>
+<%
+  previous_wordsets = cookies.permanent[:last_wordsets]
+  if previous_wordsets.nil? then
+    previous_wordsets = []
+  else
+    previous_wordsets = JSON.parse(previous_wordsets)
+  end
+%>
 <%= form_with url: play_random_path, local: true do |f| %>
 <table>
   <tbody>
     <tr><th>苦手</th><th>No.</th><th>問題集</th><th></th><th>問題数</th><th>正答数</th><th>誤答数</th><th>正答率(%)</th><th>挑戦回数</th></tr>
     <% for wordset in @wordsets do %>
     <tr>
-      <td><%= f.check_box('wordset_id', {multiple: true}, wordset.id, nil) %></td>
+      <td><%= f.check_box('wordset_id', {multiple: true, checked: previous_wordsets.include?(wordset.id.to_s)}, wordset.id, nil) %></td>
       <td align="right"><%= f.label("wordset_id_" + wordset.id.to_s, wordset.index) %></td>
       <td><%= link_to wordset.name, wordset_words_path(wordset) %></td>
       <td><%= link_to 'やる!', play_wordset_path(wordset.id) %></td>
