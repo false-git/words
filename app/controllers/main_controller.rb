@@ -96,7 +96,7 @@ class MainController < ApplicationController
       break if @words.length >= 30
     end
     if @words.length < 30 then
-      scores.sort! {|a, b| a.q_a_ok == b.q_a_ok ? rand(3) - 1 : a.q_a_ok <=> b.q_a_ok}
+      scores.sort_by! {|v| v.q_a_ok * 10 + rand(9)}
       limit = 30 - @words.length - 1
       limit = scores.length - 1 if limit > scores.length
       for index in 0..limit do
