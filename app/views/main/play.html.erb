@@ -8,7 +8,10 @@
 <span class="ng">間違い！</span>
 <% end %>
  <%= @prevword.question %>: <%= @prevword.answer %> (<%= @answer %>)
-○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %><br/><br/>
+ ○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %>
+ <input id="text_speak" type="hidden" value="<%= @prevword.answer %>">
+ <button id="btn_speak">Speak!</button>
+<br/><br/>
 <% end %>
 <% if @word.nil? then %>
 おしまい！お疲れ様でした。<%= @ok %> / <%= @words.length %>点！

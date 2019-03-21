@@ -7,4 +7,14 @@ $(document).on 'turbolinks:load', ->
     $('input[name="wordset_id[]"]').prop('checked', true)
   $("#btn_select_none").click ->
     $('input[name="wordset_id[]"]').prop('checked', false)
-    
+  $("#btn_speak").click ->
+    speak($("#text_speak").val())
+  if $("#text_speak").val()?
+    speak($("#text_speak").val())
+
+speak = (text) ->
+    uttr = new SpeechSynthesisUtterance()
+    uttr.text = text
+    uttr.lang = "en-US"
+    speechSynthesis.speak(uttr)
+  
