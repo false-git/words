@@ -10,11 +10,13 @@ $(document).on 'turbolinks:load', ->
   $("#btn_speak").click ->
     speak($("#text_speak").val())
   if $("#text_speak").val()?
-    speak($("#text_speak").val())
+    speak($("#text_speak").val(), 0.8)
 
-speak = (text) ->
-    uttr = new SpeechSynthesisUtterance()
-    uttr.text = text
-    uttr.lang = "en-US"
-    speechSynthesis.speak(uttr)
+speak = (text, rate = 1) ->
+  uttr = new SpeechSynthesisUtterance()
+  uttr.text = text
+  uttr.rate = rate
+  uttr.lang = "en-US"
+  speechSynthesis.cancel()
+  speechSynthesis.speak(uttr)
   
