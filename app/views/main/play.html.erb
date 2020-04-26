@@ -7,24 +7,29 @@
 <% else %>
 <span class="ng">間違い！</span>
 <% end %>
- <%= @prevword.question %>: <%= @prevword.answer %> (<%= @answer %>)
- ○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %>
- <input id="text_speak" type="hidden" value="<%= @prevword.answer %>">
- <button id="btn_speak">Speak!</button>
+<table><tdoby>
+<tr>
+<td><%= simple_format(h(@prevword.question)) %></td>
+<td>: <%= @prevword.answer %> (<%= @answer %>)</td>
+<td>○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %></td>
+<td><input id="text_speak" type="hidden" value="<%= @prevword.answer %>">
+<button id="btn_speak">Speak!</button></td>
+</tr>
+</tbody></table>
 <br/><br/>
 <% end %>
 <% if @word.nil? then %>
 おしまい！お疲れ様でした。<%= @ok %> / <%= @words.length %>点！
 <table><tdoby>
 <% for word in @ng_words do %>
-<tr><td><%= word.question %></td><td><%= word.answer %></td></tr>
+<tr><td><%= simple_format(h(word.question)) %></td><td><%= word.answer %></td></tr>
 <% end %>
 </tbody></table>
 <% else %>
 <%= @word.wordset.name %>
 No. <%= @word.index %> あと<%= @words.length - @count %>問<br/><br/>
 <%= form_with url: question_path, local: true do |f| %>
-<%= f.label :answer, @word.question %>
+<%= f.label :answer, simple_format(h(@word.question)) %>
 <%= f.text_field :answer, :autofocus => true, :autocomplete => :off %>
 <%= f.submit '答える!' %>
 <% end %>
