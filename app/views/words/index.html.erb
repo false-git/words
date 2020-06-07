@@ -18,7 +18,7 @@
     <% @words.each do |word| %>
       <tr>
         <td><%= word.index %></td>
-        <td><%= word.question %></td>
+        <td><%= simple_format(h(word.question)) %></td>
         <td><%= word.answer %></td>
         <td><%= link_to 'Show', word %></td>
         <td><%= link_to 'Edit', edit_word_path(word) %></td>
