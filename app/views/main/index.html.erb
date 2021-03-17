@@ -24,6 +24,8 @@
   end
 %>
 <%= form_with url: play_random_path, local: true do |f| %>
+<input type='button' id='btn_select_all' value='全部選択する' /><input type='button' id='btn_select_none' value='全部選択解除' /><br/>
+<%= f.submit '苦手克服レッスン やるぜ！' %>
 <table>
   <tbody>
     <tr><th>苦手</th><th>No.</th><th>問題集</th><th></th><th>問題数</th><th>正答数</th><th>誤答数</th><th>正答率(%)</th><th>挑戦回数</th></tr>

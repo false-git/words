@@ -4,7 +4,7 @@ class MainController < ApplicationController
     @login_user = current_user
     if !@login_user.nil? then
       @wordsets = []
-      for wordset in Wordset.order(:index) do
+      for wordset in Wordset.order(index: :desc) do
         ok_count = 0
         ng_count = 0
         wordset_length = wordset.words.length

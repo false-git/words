@@ -4,7 +4,7 @@ class WordsetsController < ApplicationController
   # GET /wordsets
   # GET /wordsets.json
   def index
-    @wordsets = Wordset.order(:index)
+    @wordsets = Wordset.order(index: :desc)
   end
 
   # GET /wordsets/1
