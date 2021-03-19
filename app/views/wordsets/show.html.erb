@@ -1,6 +1,16 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Group:</strong>
+  <%= @wordset.group.name %>
+</p>
+
+<p>
+  <strong>No.:</strong>
+  <%= @wordset.index %>
+</p>
+
+<p>
   <strong>Name:</strong>
   <%= @wordset.name %>
 </p>
@@ -11,4 +21,4 @@
 </p>
 
 <%= link_to 'Edit', edit_wordset_path(@wordset) %> |
-<%= link_to 'Back', wordsets_path %>
+<%= link_to 'Back', group_wordsets_path(@wordset.group_id) %>

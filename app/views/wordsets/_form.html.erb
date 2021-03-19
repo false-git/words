@@ -1,4 +1,4 @@
-<%= form_with(model: wordset, local: true) do |form| %>
+<%= form_with(model: shallow_args(@group, @wordset), local: true) do |form| %>
   <% if wordset.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(wordset.errors.count, "error") %> prohibited this wordset from being saved:</h2>
@@ -10,6 +10,11 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="field">
+    <strong>Group:</strong>
+    <%= @wordset.group.name %>
+  </div>
 
   <div class="field">
     <%= form.label :index, 'No.' %>

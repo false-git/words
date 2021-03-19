@@ -23,6 +23,12 @@
     previous_wordsets = JSON.parse(previous_wordsets)
   end
 %>
+<strong>グループ</strong>
+<%= select_tag 'group_select',
+    options_from_collection_for_select(Group.all.order(:index), :id, :name,
+    @group_id), prompt: "all" %>
+<br/><br/>
+
 <%= form_with url: play_random_path, local: true do |f| %>
 <input type='button' id='btn_select_all' value='全部選択する' /><input type='button' id='btn_select_none' value='全部選択解除' /><br/>
 <%= f.submit '苦手克服レッスン やるぜ！' %>
@@ -53,6 +59,6 @@
 <h2>maintenance menu</h2>
 
 <ul>
-<li><%= link_to 'Wordset', wordsets_path %></li>
+<li><%= link_to 'Group', groups_path %></li>
 <li><%= link_to 'User', users_path %></li>
 </ul>
