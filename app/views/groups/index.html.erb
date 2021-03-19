@@ -5,7 +5,7 @@
 <table>
   <thead>
     <tr>
-      <th>Index</th>
+      <th>No.</th>
       <th>Name</th>
       <th>Description</th>
       <th colspan="3"></th>
@@ -16,7 +16,7 @@
     <% @groups.each do |group| %>
       <tr>
         <td><%= group.index %></td>
-        <td><%= group.name %></td>
+        <td><%= link_to group.name, group_wordsets_path(group) %></td>
         <td><%= group.description %></td>
         <td><%= link_to 'Show', group %></td>
         <td><%= link_to 'Edit', edit_group_path(group) %></td>
@@ -28,4 +28,5 @@
 
 <br>
 
-<%= link_to 'New Group', new_group_path %>
+<%= link_to 'New Group', new_group_path %><br/>
+<%= link_to 'Back', root_path %>

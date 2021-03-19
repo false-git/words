@@ -4,7 +4,9 @@ class WordsetsController < ApplicationController
   # GET /wordsets
   # GET /wordsets.json
   def index
-    @wordsets = Wordset.order(index: :desc)
+    #@wordsets = Wordset.order(index: :desc)
+    @group = Group.where(:id => params[:group_id]).first
+    @wordsets = @group.wordsets.order(index: :desc)
   end
 
   # GET /wordsets/1
@@ -14,7 +16,14 @@ class WordsetsController < ApplicationController
 
   # GET /wordsets/new
   def new
-    @wordset = Wordset.new
+    #@wordset = Wordset.new
+    @group = Group.where(:id => params[:group_id]).first
+    @wordset = @group.wordsets.build
+    @wordset.index = Wordset.maximum(:index)
+    if @wordset.index.nil? then
+      @wordset.index = 0
+    end
+    @wordset.index += 1
   end
 
   # GET /wordsets/1/edit
@@ -24,7 +33,9 @@ class WordsetsController < ApplicationController
   # POST /wordsets
   # POST /wordsets.json
   def create
-    @wordset = Wordset.new(wordset_params)
+    #@wordset = Wordset.new(wordset_params)
+    @group = Group.where(:id => params[:group_id]).first
+    @wordset = @group.wordsets.build(wordset_params)
 
     respond_to do |format|
       if @wordset.save

@@ -11,6 +11,9 @@ $(document).on 'turbolinks:load', ->
     speak($("#text_speak").val())
   if $("#text_speak").val()?
     speak($("#text_speak").val(), 0.8)
+  $("#group_select").change ->
+    document.cookie = "last_group=" + $("#group_select").val()
+    location.reload()
 
 speak = (text, rate = 1) ->
   uttr = new SpeechSynthesisUtterance()

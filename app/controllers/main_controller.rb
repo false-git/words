@@ -4,7 +4,13 @@ class MainController < ApplicationController
     @login_user = current_user
     if !@login_user.nil? then
       @wordsets = []
-      for wordset in Wordset.order(index: :desc) do
+      @group_id = cookies.permanent[:last_group]
+      if @group_id.blank? then
+        wordsets = Wordset.order(index: :desc)
+      else
+        wordsets = Wordset.where(:group_id => @group_id).order(index: :desc)
+      end
+      for wordset in wordsets do
         ok_count = 0
         ng_count = 0
         wordset_length = wordset.words.length

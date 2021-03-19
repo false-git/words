@@ -4,7 +4,7 @@ class GroupsController < ApplicationController
   # GET /groups
   # GET /groups.json
   def index
-    @groups = Group.all
+    @groups = Group.all.order(index: :desc)
   end
 
   # GET /groups/1
@@ -15,6 +15,11 @@ class GroupsController < ApplicationController
   # GET /groups/new
   def new
     @group = Group.new
+    @group.index = Group.maximum(:index)
+    if @group.index.nil? then
+      @group.index = 0
+    end
+    @group.index += 1
   end
 
   # GET /groups/1/edit
