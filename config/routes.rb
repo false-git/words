@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :groups
   root 'main#index'
   post '/main/login', to: 'main#login', as: 'login'
   get '/main/logout', to: 'main#logout', as: 'logout'
