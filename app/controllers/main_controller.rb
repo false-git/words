@@ -5,18 +5,18 @@ class MainController < ApplicationController
     if !@login_user.nil? then
       @wordsets = []
       @group_id = cookies.permanent[:last_group]
+      join_sql = Wordset.sanitize_sql_array(["AND scores.user_id = ?", @login_user.id])
       if @group_id.blank? then
-        wordsets = Wordset.order(index: :desc)
+        wordsets = Wordset.eager_load(words: :scores).joins(join_sql).order(index: :desc)
       else
-        wordsets = Wordset.where(:group_id => @group_id).order(index: :desc)
+        wordsets = Wordset.eager_load(words: :scores).joins(join_sql).where(:group_id => @group_id).order(index: :desc)
       end
       for wordset in wordsets do
         ok_count = 0
         ng_count = 0
         wordset_length = wordset.words.length
         for word in wordset.words do
-          score = word.scores.find_by(user_id: @login_user.id)
-          if !score.nil? then
+          for score in word.scores do
             ok_count += score.q_a_ok
             ng_count += score.q_a_ng
           end
