@@ -20,6 +20,16 @@
   <%= @word.answer %>
 </p>
 
+<% @checks.each do |check| %>
+  <% if !check[:correct] then %>
+    <p><strong><span class="ng"><%= check[:original] %>:</span></strong>
+      <% check[:suggestions].each do |suggest| %>
+        <%= suggest %>,
+      <% end %>
+    </p>
+  <% end %>
+<% end %>
+
 <%= link_to 'Edit', edit_word_path(@word) %> |
 <%= link_to 'New Word', new_wordset_word_path(@word.wordset_id) %> |
 <%= link_to 'Back', wordset_words_path(@word.wordset_id) %>
