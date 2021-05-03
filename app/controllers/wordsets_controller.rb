@@ -67,7 +67,7 @@ class WordsetsController < ApplicationController
   def destroy
     @wordset.destroy
     respond_to do |format|
-      format.html { redirect_to wordsets_url, notice: 'Wordset was successfully destroyed.' }
+      format.html { redirect_to group_wordsets_url(@group.id), notice: 'Wordset was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -76,6 +76,7 @@ class WordsetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_wordset
       @wordset = Wordset.find(params[:id])
+      @group = @wordset.group
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
