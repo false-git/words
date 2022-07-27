@@ -1,5 +1,6 @@
 <h1>単語帳アプリのようなもの</h1>
 
+<div data-controller="main">
 <%= @login_user.name %> さん、がんばって！<br/><br/>
 <% if !@answer_ok.nil? then %>
 <% if @answer_ok then %>
@@ -13,7 +14,7 @@
 <td>: <%= @prevword.answer %> (<%= @answer %>)</td>
 <td>○:<%= @score.q_a_ok %>, ×:<%= @score.q_a_ng %></td>
 <td><input id="text_speak" type="hidden" value="<%= @prevword.answer %>">
-<button id="btn_speak">Speak!</button></td>
+<button data-action="click->main#speak">Speak!</button></td>
 </tr>
 </tbody></table>
 <br/><br/>
@@ -28,7 +29,7 @@
 <% else %>
 <%= @word.wordset.name %>
 No. <%= @word.index %> あと<%= @words.length - @count %>問<br/><br/>
-<%= form_with url: question_path, local: true do |f| %>
+<%= form_with url: question_path, local: true, data: {turbo: false} do |f| %>
 <%= f.label :answer, simple_format(h(@word.question)) %>
 <%= f.text_field :answer, :autofocus => true, :autocomplete => :off %>
 <%= f.submit '答える!' %>
@@ -36,3 +37,4 @@ No. <%= @word.index %> あと<%= @words.length - @count %>問<br/><br/>
 <% end %>
 <br/><%= link_to '戻る', root_path %>
 <br/><%= link_to 'logout', logout_path %>
+</div>
