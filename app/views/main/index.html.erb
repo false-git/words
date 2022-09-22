@@ -1,5 +1,6 @@
 <h1>単語帳アプリのようなもの</h1>
 
+<div data-controller="main">
 <% if ! @message.nil? then %>
 <div class="field_with_errors"><%= @message %></div>
 <% end %>
@@ -26,11 +27,11 @@
 <strong>グループ</strong>
 <%= select_tag 'group_select',
     options_from_collection_for_select(Group.all.order(:index), :id, :name,
-    @group_id), prompt: "all" %>
+    @group_id), prompt: "all", data: {"action" => "main#selectGroup"} %>
 <br/><br/>
 
-<%= form_with url: play_random_path, local: true do |f| %>
-<input type='button' id='btn_select_all' value='全部選択する' /><input type='button' id='btn_select_none' value='全部選択解除' /><br/>
+<%= form_with url: play_random_path, local: true, data: {turbo: false} do |f| %>
+<input type='button' id='btn_select_all' value='全部選択する' data-action="click->main#selectAll" /><input type='button' id='btn_select_none' value='全部選択解除' data-action="click->main#selectNone" /><br/>
 <%= f.submit '苦手克服レッスン やるぜ！' %>
 <table>
   <tbody>
@@ -50,7 +51,7 @@
     <% end %>
   </tbody>
 </table>
-<input type='button' id='btn_select_all' value='全部選択する' /><input type='button' id='btn_select_none' value='全部選択解除' /><br/>
+<input type='button' id='btn_select_all' value='全部選択する' data-action="click->main#selectAll" /><input type='button' id='btn_select_none' value='全部選択解除' data-action="click->main#selectNone" /><br/>
 <%= f.submit '苦手克服レッスン やるぜ！' %>
 <% end %>
 <br/><br/><%= link_to 'logout', logout_path %>
@@ -62,3 +63,4 @@
 <li><%= link_to 'Group', groups_path %></li>
 <li><%= link_to 'User', users_path %></li>
 </ul>
+</div>
